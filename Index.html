@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luis Pablo León | Diseño Interactivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --card-bg: #161616;
+            --accent: #007bff;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- EFECTO DE REVELACIÓN (INTERACTIVO) --- */
+        .reveal {
+            opacity: 0;
+            filter: blur(15px);
+            transform: translateY(30px);
+            transition: all 1.2s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0);
+        }
+
+        /* --- SECCIÓN HERO / PERFIL --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .profile-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 30px rgba(0, 123, 255, 0.3);
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p.tagline {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+        }
+
+        /* --- CONTACTO RÁPIDO --- */
+        .contact-bar {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .contact-bar a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .contact-bar a:hover {
+            color: var(--accent);
+        }
+
+        /* --- SECCIONES GENERALES --- */
+        section {
+            padding: 100px 0;
+        }
+
+        h2.section-title {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* --- GRID DE PROYECTOS --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: transform 0.4s, border-color 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid #333;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-content h3 {
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .project-content p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        /* --- SECCIÓN VIDEOS --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .video-item {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 15px;
+            border: 1px solid #333;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        /* --- FOOTER / CONTACTO FINAL --- */
+        footer {
+            background: #050505;
+            padding: 80px 0 40px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        .contact-info {
+            margin-bottom: 40px;
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-info i {
+            color: var(--accent);
+            margin-right: 10px;
+            width: 25px;
+        }
+
+        .footer-socials {
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-socials a { color: white; transition: 0.3s; }
+        .footer-socials a:hover { color: var(--accent); transform: scale(1.2); }
+
+        .copy {
+            color: #555;
+            font-size: 0.8rem;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <img src="Proyectos/image_00dd9f.png" alt="Luis Pablo León Capitán" class="profile-img">
+        <h1>Luis Pablo León Capitán</h1>
+        <p class="tagline">Diseño Interactivo</p>
+        
+        <div class="contact-bar">
+            <a href="https://www.instagram.com/so.bo.re.d/" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="mailto:hehewtf1@gmail.com" title="Correo"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://wa.me/522271077284" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <section id="proyectos">
+            <h2 class="section-title reveal">Proyectos de Diseño</h2>
+            
+            <div class="projects-grid">
+                <div class="project-card reveal">
+                    <img src="Proyectos/robot.png" alt="Diseño Robótico" class="project-img">
+                    <div class="project-content">
+                        <h3>Modelado & Mecanismos</h3>
+                        <p>Simulación de brazo robótico industrial. Enfoque en materiales, iluminación y funcionalidad mecánica interactiva.</p>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <img src="Proyectos/Screenshot 2026-05-28 232939.png" alt="Proyecto 1" class="project-img">
+                    <div class="project-content">
+                        <h3>Sistemas de Diseño</h3>
+                        <p>Estructuración de wireframes y flujo de navegación para plataformas de alta complejidad visual.</p>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <img src="Proyectos/Screenshot 2026-05-28 232954.png" alt="Proyecto 2" class="project-img">
+                    <div class="project-content">
+                        <h3>Interfaces Musicales</h3>
+                        <p>Diseño de UI/UX centrado en el usuario para aplicaciones de streaming con temática oscura y moderna.</p>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <img src="Proyectos/Screenshot 2026-05-28 233018.png" alt="Proyecto 3" class="project-img">
+                    <div class="project-content">
+                        <h3>Dashboard De Rediseño de App</h3>
+                        <p>Proyecto de rediseño de aplicacion ya creada.</p>
+                    </div>
+                </div>
+
+                <div class="project-card reveal">
+                    <img src="Proyectos/Screenshot 2026-05-28 233203.png" alt="Proyecto 4" class="project-img">
+                    <div class="project-content">
+                        <h3>Rediseño de Plataforma</h3>
+                        <p>Análisis de marca y aplicación de identidad visual sobre interfaces web escalables.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="multimedia">
+            <h2 class="section-title reveal">Producción Multimedia</h2>
+            
+            <div class="video-grid">
+                <div class="video-item reveal">
+                    <video controls>
+                        <source src="Proyectos/video1.mp4" type="video/mp4">
+                    </video>
+                    <h3>Concepto Interactivo I</h3>
+                </div>
+
+                <div class="video-item reveal">
+                    <video controls>
+                        <source src="Proyectos/video2.mp4" type="video/mp4">
+                    </video>
+                    <h3>Mecatronica para Videojuegos</h3>
+                </div>
+
+                <div class="video-item reveal">
+                    <video controls>
+                        <source src="Proyectos/video3.mp4" type="video/mp4">
+                    </video>
+                    <h3>Showreel de Proyectos</h3>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="container reveal">
+            <h2 class="section-title">Hablemos</h2>
+            <div class="contact-info">
+                <p><i class="fa-solid fa-phone"></i> +52 227 107 7284</p>
+                <p><i class="fa-solid fa-envelope"></i> hehewtf1@gmail.com</p>
+                <p><i class="fa-solid fa-location-dot"></i> Puebla, México</p>
+            </div>
+
+            <div class="footer-socials">
+                <a href="https://www.instagram.com/so.bo.re.d/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="mailto:hehewtf1@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            
+            <p class="copy">© 2026 Luis Pablo León Capitán | Diseñador Interactivo</p>
+        </div>
+    </footer>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+
+</body>
+</html>
